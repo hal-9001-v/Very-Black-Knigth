@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//Author: Vic
 [ExecuteInEditMode]
 public class SnapToGrid : MonoBehaviour
 {

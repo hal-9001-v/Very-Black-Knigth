@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 //Author: Vic
+//Game class is made to link elements within the game. Thus, it can  be used to modify many elements.
 [ExecuteInEditMode]
 public class Game : MonoBehaviour
 {
