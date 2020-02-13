@@ -9,9 +9,6 @@ public class GridTile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-
-
         gameObject.tag = GameObject.Find("GameController").GetComponent<Game>().getTileTag();
     }
 
