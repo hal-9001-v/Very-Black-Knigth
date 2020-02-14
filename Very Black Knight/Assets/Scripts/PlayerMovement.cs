@@ -52,9 +52,9 @@ public class PlayerMovement : MonoBehaviour
         {
 
             //Forward
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow) | Input.GetKeyDown(KeyCode.W))
             {
-                Debug.Log("Up key was pressed");
+                Debug.Log("Up or W key was pressed");
 
                 if (!canMakeMovement(1, 0))
                 {
@@ -63,10 +63,10 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //BackWard
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.DownArrow) | Input.GetKeyDown(KeyCode.S))
             {
 
-                Debug.Log("Down key was pressed");
+                Debug.Log("Down or S key was pressed");
 
                 if (!canMakeMovement(-1, 0))
                 {
@@ -75,9 +75,9 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //Right
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) | Input.GetKeyDown(KeyCode.D))
             {
-                Debug.Log("Right key was pressed");
+                Debug.Log("Right or D key was pressed");
 
                 if (!canMakeMovement(0, -1))
                 {
@@ -87,9 +87,9 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //Left
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) | Input.GetKeyDown(KeyCode.A))
             {
-                Debug.Log("Left key was pressed");
+                Debug.Log("Left or A key was pressed");
 
                 if (!canMakeMovement(0, 1))
                 {

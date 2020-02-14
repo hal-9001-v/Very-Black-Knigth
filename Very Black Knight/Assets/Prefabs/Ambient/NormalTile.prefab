@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 8129124848139926796}
   - component: {fileID: 7301307362305681927}
   m_Layer: 0
-  m_Name: normalTile
-  m_TagString: Untagged
+  m_Name: NormalTile
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,9 +110,8 @@ MonoBehaviour:
   cellSize: 1
   placeOnGrid: 1
   touchingFloor: 1
-  scaleXToFitCell: 0
-  scaleZToFitCell: 0
+  scaleXToFitCell: 1
+  scaleZToFitCell: 1
   dimensions: {x: 1, y: 1}
-  centered: 1
   offsetInX: 0
   offsetInZ: 0

@@ -79,21 +79,23 @@ public class SnapToGrid : MonoBehaviour
 
     void scaleXtoFit()
     {
-
+        float xSize = gameObject.GetComponent<MeshRenderer>().bounds.size.x ;
         Vector3 actualScale = gameObject.transform.localScale;
         
-        Vector3 scaleVector = new Vector3(actualScale.x * cellSize * dimensions.x / actualScale.x, actualScale.y, actualScale.z);
+        Vector3 scaleVector = new Vector3(actualScale.x * cellSize * dimensions.x / xSize, actualScale.y, actualScale.z);
 
         gameObject.transform.localScale = scaleVector;
     }
 
     void scaleZtoFit()
     {
+        float zSize = gameObject.GetComponent<MeshRenderer>().bounds.size.z;
         Vector3 actualScale = gameObject.transform.localScale;
        
-        Vector3 scaleVector = new Vector3(actualScale.x, actualScale.y, actualScale.z * cellSize*dimensions.y / actualScale.z);
+        Vector3 scaleVector = new Vector3(actualScale.x, actualScale.y, actualScale.z * cellSize*dimensions.y / zSize);
 
         gameObject.transform.localScale = scaleVector;
     }
+
 
 }
