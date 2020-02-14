@@ -29,7 +29,13 @@ public class Game : MonoBehaviour
         //We have to check every floor tile we have
         foreach (GameObject go in tiles)
         {
-            if (go.GetComponent<GridTile>().movable(x, y)) return true;
+
+            if (go.GetComponent<GridTile>().movable(x, y)) {
+
+                if (go.GetComponent<GridTile>().endingTile) {
+                    Debug.Log("End of Game");
+                }
+                return true; }
         }
 
         return false;

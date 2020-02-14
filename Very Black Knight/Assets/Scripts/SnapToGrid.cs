@@ -6,10 +6,6 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class SnapToGrid : MonoBehaviour
 {
-    private float gridX;
-    private float gridZ;
-    private float gridY;
-
     private float offsetLimitX;
     private float offsetLimitZ;
 
@@ -24,7 +20,7 @@ public class SnapToGrid : MonoBehaviour
 
     public Vector2 dimensions;
 
-    public bool centered = true;
+    private bool centered = true;
     [RangeAttribute(-1,1)]
     public float offsetInX;
     [RangeAttribute(-1, 1)]
@@ -50,14 +46,14 @@ public class SnapToGrid : MonoBehaviour
                 if (scaleZToFitCell) scaleZtoFit();
 
 
-                gridX = Mathf.Round(transform.position.x / cellSize) * cellSize;
-                gridZ = Mathf.Round(transform.position.z / cellSize) * cellSize;
+                float gridX = Mathf.Round(transform.position.x / cellSize) * cellSize;
+                float gridZ = Mathf.Round(transform.position.z / cellSize) * cellSize;
 
                 if (!touchingFloor)
                     transform.position = new Vector3(gridX, transform.position.y, gridZ);
                 else
                 {
-                    gridY = GetComponent<MeshRenderer>().bounds.size.y / 2;
+                    float gridY = GetComponent<MeshRenderer>().bounds.size.y / 2;
                     transform.position = new Vector3(gridX, gridY, gridZ);
                 }
 
@@ -83,7 +79,7 @@ public class SnapToGrid : MonoBehaviour
 
     void scaleXtoFit()
     {
-        float xSize = gameObject.GetComponent<MeshRenderer>().bounds.size.x ;
+
         Vector3 actualScale = gameObject.transform.localScale;
         
         Vector3 scaleVector = new Vector3(actualScale.x * cellSize * dimensions.x / actualScale.x, actualScale.y, actualScale.z);
@@ -93,24 +89,11 @@ public class SnapToGrid : MonoBehaviour
 
     void scaleZtoFit()
     {
-        float zSize = gameObject.GetComponent<MeshRenderer>().bounds.size.z;
         Vector3 actualScale = gameObject.transform.localScale;
        
-        Vector3 scaleVector = new Vector3(actualScale.x, actualScale.y, actualScale.z * cellSize*dimensions.y / zSize);
+        Vector3 scaleVector = new Vector3(actualScale.x, actualScale.y, actualScale.z * cellSize*dimensions.y / actualScale.z);
 
         gameObject.transform.localScale = scaleVector;
-    }
-
-    public float getGridX() {
-        return gridX;
-    }
-
-    public float getGridY() {
-        return gridY;
-    }
-
-    public float getGridZ() {
-        return gridZ;
     }
 
 }
