@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 //Author: Vic
 [ExecuteInEditMode]
 public class SnapToGrid : MonoBehaviour
@@ -13,28 +14,41 @@ public class SnapToGrid : MonoBehaviour
     public bool placeOnGrid = false;
     public bool touchingFloor = true;
     
-
     
     public bool scaleXToFitCell = false;
     public bool scaleZToFitCell = false;
+    public bool scaleYToFitCell = false;
+
+    [RangeAttribute(0.1f, 1)]
+    public float scaleFactor = 1;
 
     public Vector2 dimensions;
 
-    private bool centered = true;
-    [RangeAttribute(-1,1)]
-    public float offsetInX;
-    [RangeAttribute(-1, 1)]
-    public float offsetInZ;
+    MeshRenderer mRenderer;
+    bool childExists = false;
 
-    private bool changeDone;
+    void Start() {
+        mRenderer = gameObject.GetComponent<MeshRenderer>();
 
-    Vector3 originalPosition;
+        //If there is no MeshRenderer on the object, it may exists in its child
+        if (mRenderer == null) {
+            mRenderer = gameObject.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+            childExists = true;
+        }
+
+        if (mRenderer == null) {
+            Debug.LogError("Mesh Renderer Missing!");
+        }
+        
+    }
     // Update is called once per frame
     void Update()
     {
+
+
         if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
         {
-
+        
             if (dimensions.x == 0) dimensions.x = 1;
             if (dimensions.y == 0) dimensions.y = 1;
             if (cellSize == 0) cellSize = 1;
@@ -44,6 +58,7 @@ public class SnapToGrid : MonoBehaviour
             {
                 if (scaleXToFitCell) scaleXtoFit();
                 if (scaleZToFitCell) scaleZtoFit();
+                if (scaleYToFitCell) scaleYtoFit();
 
 
                 float gridX = Mathf.Round(transform.position.x / cellSize) * cellSize;
@@ -53,46 +68,53 @@ public class SnapToGrid : MonoBehaviour
                     transform.position = new Vector3(gridX, transform.position.y, gridZ);
                 else
                 {
-                    float gridY = GetComponent<MeshRenderer>().bounds.size.y / 2;
-                    transform.position = new Vector3(gridX, gridY, gridZ);
-                }
-
-                if (!centered)
-                {
-                    if (!changeDone) {
-                        Vector3 auxiliarVector = new Vector3();
-                        auxiliarVector = transform.position;
-
-                        auxiliarVector.x += gameObject.GetComponent<MeshRenderer>().bounds.size.x;
-                        transform.position = auxiliarVector;
-                        changeDone = true;
-                    }
-                
                     
+                    if (childExists)
+                    {
+                        float gridY = mRenderer.bounds.size.y / 2;
+
+                        transform.position = new Vector3(gridX, 0, gridZ);
+                        
+                        transform.GetChild(0).transform.position = new Vector3(gridX, 0, gridZ);
+
+                    }
+                    else {
+                        float gridY = mRenderer.bounds.size.y / 2;
+                        transform.position = new Vector3(gridX, gridY, gridZ);
+
+                    }
                 }
-                else {
-                    changeDone = false;
-                }
+
             }
         }
     }
 
     void scaleXtoFit()
     {
-        float xSize = gameObject.GetComponent<MeshRenderer>().bounds.size.x;
+        float xSize = mRenderer.bounds.size.x;
         Vector3 actualScale = gameObject.transform.localScale;
         
-        Vector3 scaleVector = new Vector3(actualScale.x * cellSize * dimensions.x / xSize, actualScale.y, actualScale.z);
+        Vector3 scaleVector = new Vector3(actualScale.x *scaleFactor* cellSize * dimensions.x / xSize, actualScale.y, actualScale.z);
 
         gameObject.transform.localScale = scaleVector;
     }
 
     void scaleZtoFit()
     {
-        float zSize = gameObject.GetComponent<MeshRenderer>().bounds.size.z;
+        float zSize = mRenderer.bounds.size.z;
         Vector3 actualScale = gameObject.transform.localScale;
        
-        Vector3 scaleVector = new Vector3(actualScale.x, actualScale.y, actualScale.z * cellSize*dimensions.y / zSize);
+        Vector3 scaleVector = new Vector3(actualScale.x, actualScale.y, actualScale.z *scaleFactor* cellSize*dimensions.y / zSize);
+
+        gameObject.transform.localScale = scaleVector;
+    }
+
+    void scaleYtoFit()
+    {
+        float ySize = mRenderer.bounds.size.y;
+        Vector3 actualScale = gameObject.transform.localScale;
+
+        Vector3 scaleVector = new Vector3(actualScale.x, actualScale.y * cellSize / ySize, actualScale.z);
 
         gameObject.transform.localScale = scaleVector;
     }
