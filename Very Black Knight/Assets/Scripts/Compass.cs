@@ -13,6 +13,10 @@ public class Compass : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (axisObject == null) {
+            Debug.LogError("Axis Object for compass is missing!");
+        }
+
         setDestination();
     }
 

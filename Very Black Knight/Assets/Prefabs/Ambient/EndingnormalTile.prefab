@@ -110,8 +110,8 @@ MonoBehaviour:
   cellSize: 1
   placeOnGrid: 1
   touchingFloor: 1
-  scaleXToFitCell: 1
-  scaleZToFitCell: 1
+  scaleXToFitCell: 0
+  scaleZToFitCell: 0
   dimensions: {x: 1, y: 1}
   offsetInX: 0
   offsetInZ: 0
