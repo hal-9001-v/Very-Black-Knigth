@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2819193413676936736}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12, y: 0.108735, z: 1}
+  m_LocalPosition: {x: 0, y: 0.108735, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -112,6 +112,6 @@ MonoBehaviour:
   touchingFloor: 1
   scaleXToFitCell: 1
   scaleZToFitCell: 1
+  scaleYToFitCell: 0
+  scaleFactor: 1
   dimensions: {x: 1, y: 1}
-  offsetInX: 0
-  offsetInZ: 0
