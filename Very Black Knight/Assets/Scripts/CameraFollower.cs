@@ -10,7 +10,7 @@ public class CameraFollower : MonoBehaviour
     Transform target;
 
     public bool adjustFarPlanetoHeight = false;
-    [RangeAttribute(0,10)]
+    [RangeAttribute(0,100)]
     public float height = 2;
     // Start is called before the first frame update
     void Start()
