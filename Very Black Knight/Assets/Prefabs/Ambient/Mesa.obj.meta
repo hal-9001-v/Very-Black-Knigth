@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8c19caf1fdf77db499b60479793e2526
+guid: de1e0cf241610434293c72a9d2b50f27
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: defaultMat
-    second: {fileID: 2100000, guid: 41afb3ac054ce584dad8fa8673d09683, type: 2}
+      name: MesaMat
+    second: {fileID: 2100000, guid: 9c6a3d1eb032a63409c86775f28c2265, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
