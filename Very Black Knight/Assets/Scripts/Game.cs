@@ -10,9 +10,14 @@ public class Game : MonoBehaviour
 {
     //Tiletag is the tag name which floor tiles have
     public string tileTag;
-    
+
     //Size in the grid
     public float cellSize = 1;
+
+    //Lighting settings
+    public float ambientLightRed = 0;
+    public float ambientLightGreen = 0;
+    public float ambientLightBlue = 0;
 
     GameObject player;
 
@@ -23,6 +28,7 @@ public class Game : MonoBehaviour
     float playerHeight;
 
 
+
     //This function is called to check wether floor tiles are next to the given coordinates, thus they are accessble
     public bool canMakeMovement(float x, float y)
     {
@@ -30,12 +36,15 @@ public class Game : MonoBehaviour
         foreach (GameObject go in tiles)
         {
 
-            if (go.GetComponent<GridTile>().movable(x, y)) {
+            if (go.GetComponent<GridTile>().movable(x, y))
+            {
 
-                if (go.GetComponent<GridTile>().endingTile) {
+                if (go.GetComponent<GridTile>().endingTile)
+                {
                     Debug.Log("End of Game");
                 }
-                return true; }
+                return true;
+            }
         }
 
         return false;
@@ -67,11 +76,11 @@ public class Game : MonoBehaviour
                 aux.y = player.GetComponent<PlayerMovement>().height;
 
                 player.transform.position = aux;
-                
-                
+
+
             }
 
-            
+
         }
 
         if (startingTileCounter > 1)
@@ -83,8 +92,10 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RenderSettings.ambientLight = new Color(ambientLightRed, ambientLightGreen, ambientLightBlue);
         //This is executed only in play mode
-        if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode) { 
+        if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+        {
             
         }
     }
