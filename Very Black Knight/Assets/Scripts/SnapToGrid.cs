@@ -18,6 +18,9 @@ public class SnapToGrid : MonoBehaviour
     public bool scaleXToFitCell = false;
     public bool scaleZToFitCell = false;
 
+    public bool ignoreSnapX = false;
+    public bool ignoreSnapZ = false;
+
     [RangeAttribute(0.1f, 1)]
     public float scaleFactor = 1;
 
@@ -40,7 +43,7 @@ public class SnapToGrid : MonoBehaviour
             }
         }
 
-     
+
 
     }
     // Update is called once per frame
@@ -61,12 +64,30 @@ public class SnapToGrid : MonoBehaviour
                 if (scaleXToFitCell) scaleXtoFit();
                 if (scaleZToFitCell) scaleZtoFit();
 
+                float gridX;
+                float gridZ;
 
-                float gridX = Mathf.Round(transform.position.x / cellSize) * cellSize;
-                float gridZ = Mathf.Round(transform.position.z / cellSize) * cellSize;
+                if (!ignoreSnapX)
+                    gridX = Mathf.Round(transform.position.x / cellSize) * cellSize;
+                else
+                {
+                    gridX = transform.position.x;
+                }
+
+                if (!ignoreSnapZ)
+                    gridZ = Mathf.Round(transform.position.z / cellSize) * cellSize;
+                else
+                {
+                    gridZ = transform.position.z;
+                }
+
 
                 if (!touchingFloor)
+                {
+
+
                     transform.position = new Vector3(gridX, transform.position.y, gridZ);
+                }
                 else
                 {
                     float gridY = mRenderer.bounds.size.y / 2;
