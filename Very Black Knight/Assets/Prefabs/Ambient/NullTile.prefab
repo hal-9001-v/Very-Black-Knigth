@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 905dce16e5c0fef4eb9812a55a4427ba, type: 2}
+  - {fileID: 2100000, guid: 27d8e2e553bed434a94ea5f762d9d9ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,6 +97,5 @@ MonoBehaviour:
   touchingFloor: 1
   scaleXToFitCell: 0
   scaleZToFitCell: 0
-  scaleYToFitCell: 0
   scaleFactor: 1
   dimensions: {x: 1, y: 1}
