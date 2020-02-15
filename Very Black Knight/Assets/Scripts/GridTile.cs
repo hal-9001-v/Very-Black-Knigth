@@ -22,11 +22,14 @@ public class GridTile : MonoBehaviour
     public bool movable(float x, float z) {
 
         //Debug.Log(x+" y "+z +" "+transform.position.x+" y "+transform.position.z);
-
-        if (transform.position.x != x) return false;
-        if (transform.position.z != z) return false;
+        //Approximation, numbers may not be exact
+        float tolerance = 0.2f;
+        if (Mathf.Abs(x - transform.position.x) > tolerance) return false;
+        if (Mathf.Abs(z - transform.position.z) > tolerance) return false;
 
         return true;
     
     }
+
+  
 }
