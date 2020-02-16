@@ -85,12 +85,14 @@ public class Player : MonoBehaviour
 
                 if (movementScript.doingMovement)
                 {
-                    myAnimator.SetTrigger("isWalking");
-                    myAnimator.speed = walkingSpeed;
+                    myAnimator.SetBool("isWalking",true);
+
+                    Debug.LogWarning("HEY");
+
 
                 }
                 else {
-                    myAnimator.ResetTrigger("isWalking");
+                    myAnimator.SetBool("isWalking",false);
                     currentState = (int)State.idle;
 
                 }
