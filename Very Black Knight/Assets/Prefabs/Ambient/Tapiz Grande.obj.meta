@@ -3,7 +3,17 @@ guid: 758a96861a188b941b103f0cf4beb566
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CILINDRO_TAPIZ_GMat
+    second: {fileID: 2100000, guid: f43284abd13104b46920de0c91984c9d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TAPIZ_GRANDEMat
+    second: {fileID: 2100000, guid: 2e7dd0f8c41d923458e58b74b068c550, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
