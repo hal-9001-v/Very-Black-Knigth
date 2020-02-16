@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: 5f03af6b86c97724ea60a9ba76a3f888
+guid: db7d4efdaccb53646bedc3687b9d7af0
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Cylinder003Mat
-    second: {fileID: 2100000, guid: f43284abd13104b46920de0c91984c9d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: EMPU_ADURA_ESPADAMat
-    second: {fileID: 2100000, guid: f43284abd13104b46920de0c91984c9d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: ESPADAMat
-    second: {fileID: 2100000, guid: b5eec2aca25271a4181c54257005344b, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
