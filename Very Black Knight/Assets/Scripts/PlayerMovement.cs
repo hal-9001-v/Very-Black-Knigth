@@ -8,25 +8,18 @@ public class PlayerMovement : MonoBehaviour
     private GameObject gameContainerObject;
     private Game game;
 
-    float gridX;
-    float gridZ;
-
-    //Limits on the grid
-    private int rows;
-    private int columns;
-
     //Width of cells
     private float cellSize;
     //Height over the grid
     public float height = 1;
-
 
     //Time to finish movement
     [Range(0, 10)]
     public float timeToReach = 0.5f;
     private float timeCounter;
 
-    private bool doingMovement = false;
+    [HideInInspector]
+    public bool doingMovement = false;
 
     //Starting and ending position are used of interpolation
     private Vector3 newPosition;
