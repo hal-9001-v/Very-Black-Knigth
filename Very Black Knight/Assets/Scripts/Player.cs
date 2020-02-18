@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
 
     enum State
     {
-        walking = 0,
-        idle = 1,
+        walking = 1,
+        idle = 0,
     }
 
    //Animation Times
@@ -66,11 +66,10 @@ public class Player : MonoBehaviour
             //Idle
             case 0:
                 movementScript.enabled = true;
-
-                myAnimator.speed = idleSpeed;
                 
                 if (movementScript.doingMovement)
                 {
+
                     currentState = (int)State.walking;
                 }
 
@@ -81,23 +80,16 @@ public class Player : MonoBehaviour
             case 1:
                 movementScript.enabled = true;
 
-                myAnimator.speed = walkingSpeed;
-
                 if (movementScript.doingMovement)
                 {
-                    myAnimator.SetBool("isWalking",true);
-
-                    Debug.LogWarning("HEY");
-
-
+                    myAnimator.SetBool("Walking", true);
                 }
                 else {
-                    myAnimator.SetBool("isWalking",false);
+                    myAnimator.SetBool("Walking", false);
                     currentState = (int)State.idle;
-
                 }
 
-               
+
 
                 break;
 

@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 newPosition;
     private Vector3 startingPosition;
 
+    Vector3 direction;
+
     // Start is called before the first frame update
 
     void Start()
@@ -53,6 +55,11 @@ public class PlayerMovement : MonoBehaviour
                 {
                     Debug.Log("Can't move forward");
                 }
+                else
+                {
+                    gameObject.transform.rotation = new Quaternion(0, 1, 0, 1);
+                }
+
             }
 
             //BackWard
@@ -65,6 +72,10 @@ public class PlayerMovement : MonoBehaviour
                 {
                     Debug.Log("Can't move BackWard");
                 }
+                else
+                {
+                    
+                }
             }
 
             //Right
@@ -75,6 +86,10 @@ public class PlayerMovement : MonoBehaviour
                 if (!canMakeMovement(0, -1))
                 {
                     Debug.Log("Can't move Right");
+                }
+                else
+                {
+                    gameObject.transform.rotation.SetLookRotation(direction);
                 }
 
             }
@@ -87,6 +102,10 @@ public class PlayerMovement : MonoBehaviour
                 if (!canMakeMovement(0, 1))
                 {
                     Debug.Log("Can't move Left");
+                }
+                else
+                {
+                    game.transform.rotation = new Quaternion(0, 0, 0, 1);
                 }
             }
 
@@ -114,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-    
+
     public bool canMakeMovement(float xMove, float zMove)
     {
         Vector3 movementVector = new Vector3();
@@ -138,6 +157,10 @@ public class PlayerMovement : MonoBehaviour
 
             doingMovement = true;
             timeCounter = 0;
+
+            direction = newPosition - startingPosition;
+
+            direction = Vector3.Normalize(direction);
 
             return true;
         }
