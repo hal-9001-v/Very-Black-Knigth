@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    gameObject.transform.rotation = new Quaternion(0, 1, 0, 1);
+                    gameObject.transform.eulerAngles = new Vector3(0, 90, 0);
                 }
 
             }
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    
+                    gameObject.transform.eulerAngles = new Vector3(0, -90, 0);
                 }
             }
 
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    gameObject.transform.rotation.SetLookRotation(direction);
+                    gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
                 }
 
             }
@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    game.transform.rotation = new Quaternion(0, 0, 0, 1);
+                    gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
                 }
             }
 
