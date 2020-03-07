@@ -62417,8 +62417,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 60
-  field of view: 10
+  far clip plane: 160
+  field of view: 30
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -62443,13 +62443,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041326546}
-  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -7, y: 30.5, z: -9}
+  m_LocalRotation: {x: 0.40975422, y: 0.57628244, z: -0.40975422, w: 0.57628244}
+  m_LocalPosition: {x: -9.86, y: 9.5, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 109.172, y: -90, z: -180}
 --- !u!114 &2041326550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62463,8 +62463,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetContainerObject: {fileID: 674190842}
-  adjustFarPlanetoHeight: 0
-  height: 29.5
 --- !u!108 &2041326551
 Light:
   m_ObjectHideFlags: 0
@@ -62479,8 +62477,8 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.5
   m_Range: 1000
-  m_SpotAngle: 11.8
-  m_InnerSpotAngle: 9.6
+  m_SpotAngle: 29.1
+  m_InnerSpotAngle: 2.8
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0

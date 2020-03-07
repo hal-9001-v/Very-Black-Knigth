@@ -2,51 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class CameraFollower : MonoBehaviour
+
 {
-    Camera camera;
     public GameObject targetContainerObject;
+
+    Camera myCamera;
+    Light myLight;
     Transform target;
 
-    public bool adjustFarPlanetoHeight = false;
-    [RangeAttribute(0,100)]
-    public float height = 2;
+    Vector3 cameraOffset;
+    Vector3 destination;
     // Start is called before the first frame update
     void Start()
     {
-        camera = gameObject.GetComponent<Camera>();        
+        myCamera = gameObject.GetComponent<Camera>();
+        myLight = gameObject.GetComponent<Light>();
+
         target = targetContainerObject.GetComponent<Transform>();
 
-        Vector3 auxiliarVector = target.position;
-        auxiliarVector.y += height;
 
-        transform.position = auxiliarVector;
+        cameraOffset = transform.position - target.transform.position;
 
-
-        if (adjustFarPlanetoHeight) {
-            camera.farClipPlane = transform.position.y*2;
-        }
-
-        if (camera == null) {
+        if (myCamera == null)
+        {
             Debug.LogError("Camera is missing on object!");
         }
 
-        if (target == null) {
+        if (target == null)
+        {
             Debug.LogError("Target Reference is missing!");
         }
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 auxiliarVector = target.position;
-        auxiliarVector.y += height;
 
-        transform.position = auxiliarVector;
+    }
 
-        
+    void LateUpdate()
+    {
+        destination = target.transform.position + cameraOffset;
+
+        //transform.LookAt(Vector3.Lerp(transform.rotation.eulerAngles,target.position,1));
+        //transform.LookAt(target);
+
+        if (Vector3.Distance(destination, transform.position) > 0.1)
+        {
+            transform.position = Vector3.Lerp(transform.position, destination, Time.deltaTime);
+
+        }
     }
 
 }

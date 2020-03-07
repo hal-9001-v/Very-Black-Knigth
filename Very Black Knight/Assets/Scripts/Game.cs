@@ -92,7 +92,6 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RenderSettings.ambientLight = new Color(ambientLightRed, ambientLightGreen, ambientLightBlue);
         //This is executed only in play mode
         if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
         {
