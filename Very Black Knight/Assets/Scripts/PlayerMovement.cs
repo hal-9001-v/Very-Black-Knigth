@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     [HideInInspector]
     public bool doingMovement = false;
+    public bool inputEnable = true;
 
     //Starting and ending position are used of interpolation
     private Vector3 newPosition;
@@ -39,11 +40,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public bool checkInput()
     {
 
         //Movement Input is only possible if the object is not moving
-        if (!doingMovement)
+        if (!doingMovement && inputEnable)
         {
 
             //Forward
@@ -58,7 +59,10 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 90, 0);
+                    return true;
                 }
+
+                
 
             }
 
@@ -75,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, -90, 0);
+                    return true;
                 }
             }
 
@@ -110,6 +115,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+
+        return false;
 
     }
 

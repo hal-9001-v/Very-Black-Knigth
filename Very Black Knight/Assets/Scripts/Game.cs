@@ -14,15 +14,15 @@ public class Game : MonoBehaviour
     //Size in the grid
     public float cellSize = 1;
 
-    //Lighting settings
-    public float ambientLightRed = 0;
-    public float ambientLightGreen = 0;
-    public float ambientLightBlue = 0;
+    GameObject playerObject;
+    Player myPlayerScript;
 
-    GameObject player;
+    //Enemies list
+    GameObject[] enemiesList;
 
     //List of floor tiles
     GameObject[] tiles;
+
 
     //Height of the player over the floor
     float playerHeight;
@@ -53,8 +53,13 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
-        playerHeight = player.GetComponent<PlayerMovement>().height;
+        playerObject = GameObject.Find("Player");
+        playerHeight = playerObject.GetComponent<PlayerMovement>().height;
+
+        myPlayerScript = playerObject.GetComponent<Player>();
+
+        //Find enemies in scene
+        enemiesList = GameObject.FindGameObjectsWithTag("Enemy");
 
         //Tiles will get every gameObject whose tag is "tileTag"
         tiles = GameObject.FindGameObjectsWithTag(tileTag);
@@ -73,9 +78,9 @@ public class Game : MonoBehaviour
                 startingTileCounter++;
 
                 Vector3 aux = go.transform.position;
-                aux.y = player.GetComponent<PlayerMovement>().height;
+                aux.y = playerObject.GetComponent<PlayerMovement>().height;
 
-                player.transform.position = aux;
+                playerObject.transform.position = aux;
 
 
             }
@@ -83,6 +88,7 @@ public class Game : MonoBehaviour
 
         }
 
+        //There is only one Ending tile per Scene
         if (startingTileCounter > 1)
         {
             Debug.LogError("There are " + startingTileCounter + " starting Tiles");
@@ -95,7 +101,13 @@ public class Game : MonoBehaviour
         //This is executed only in play mode
         if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
         {
-            
+            if (myPlayerScript.hasFinishedTurn()) {
+                Enemy enemyScript;
+                foreach (GameObject enemyObject in enemiesList) {
+                    enemyScript = enemyObject.GetComponent<Enemy>();
+                    enemyScript.
+                }
+            }
         }
     }
 

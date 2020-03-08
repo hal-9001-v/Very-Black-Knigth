@@ -6,13 +6,13 @@ public class Player : MonoBehaviour
 {
     private int currentState;
 
-    
-
     PlayerMovement movementScript;
     public float idleSpeed = 1;
     private float walkingSpeed;
 
     Animator myAnimator;
+
+    bool finishedTurn = false;
 
     enum State
     {
@@ -65,11 +65,10 @@ public class Player : MonoBehaviour
         {
             //Idle
             case 0:
-                movementScript.enabled = true;
-                
-                if (movementScript.doingMovement)
-                {
 
+
+                if (movementScript.checkInput())
+                {
                     currentState = (int)State.walking;
                 }
 
@@ -78,8 +77,6 @@ public class Player : MonoBehaviour
             //Walking
             //Walking animation is 1.250 long
             case 1:
-                movementScript.enabled = true;
-
                 if (movementScript.doingMovement)
                 {
                     myAnimator.SetBool("Walking", true);
@@ -89,8 +86,6 @@ public class Player : MonoBehaviour
                     currentState = (int)State.idle;
                 }
 
-
-
                 break;
 
 
@@ -98,6 +93,9 @@ public class Player : MonoBehaviour
 
     }
 
+    public bool hasFinishedTurn() {
 
+        return finishedTurn;
+    }
 
 }
