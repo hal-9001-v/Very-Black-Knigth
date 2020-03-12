@@ -10,8 +10,6 @@ public class PlayerMovement : MonoBehaviour
 
     //Width of cells
     private float cellSize;
-    //Height over the grid
-    public float height = 1;
 
     //Time to finish movement
     [Range(0, 10)]
@@ -160,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
             newPosition = movementVector;
 
             //We make sure the player's height is not the tile's height
-            newPosition.y = height;
+            newPosition.y = transform.position.y;
 
             doingMovement = true;
             timeCounter = 0;

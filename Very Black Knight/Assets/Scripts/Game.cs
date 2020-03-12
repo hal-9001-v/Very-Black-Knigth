@@ -5,7 +5,7 @@ using UnityEngine;
 
 //Author: Vic
 //Game class is made to link elements within the game. Thus, it can  be used to modify many elements.
-[ExecuteInEditMode]
+
 public class Game : MonoBehaviour
 {
     //Tiletag is the tag name which floor tiles have
@@ -18,16 +18,12 @@ public class Game : MonoBehaviour
     Player myPlayerScript;
 
     //Enemies list
-    GameObject[] enemiesList;
+    List<GameObject> enemiesList;
 
     //List of floor tiles
     GameObject[] tiles;
 
-
-    //Height of the player over the floor
-    float playerHeight;
-
-
+    bool enemyMovementActive = false;
 
     //This function is called to check wether floor tiles are next to the given coordinates, thus they are accessble
     public bool canMakeMovement(float x, float y)
@@ -54,12 +50,18 @@ public class Game : MonoBehaviour
     void Start()
     {
         playerObject = GameObject.Find("Player");
-        playerHeight = playerObject.GetComponent<PlayerMovement>().height;
 
         myPlayerScript = playerObject.GetComponent<Player>();
 
+        enemiesList = new List<GameObject>();
+
         //Find enemies in scene
-        enemiesList = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+           
+            enemiesList.Add(enemy);
+
+        }
 
         //Tiles will get every gameObject whose tag is "tileTag"
         tiles = GameObject.FindGameObjectsWithTag(tileTag);
@@ -78,7 +80,7 @@ public class Game : MonoBehaviour
                 startingTileCounter++;
 
                 Vector3 aux = go.transform.position;
-                aux.y = playerObject.GetComponent<PlayerMovement>().height;
+                aux.y = playerObject.transform.position.y;
 
                 playerObject.transform.position = aux;
 
@@ -98,22 +100,34 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //This is executed only in play mode
-        if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
-        {
-            if (myPlayerScript.hasFinishedTurn()) {
-                Enemy enemyScript;
-                foreach (GameObject enemyObject in enemiesList) {
-                    enemyScript = enemyObject.GetComponent<Enemy>();
-                    enemyScript.
-                }
-            }
-        }
+        if(!enemyMovementActive)
+        StartCoroutine(EnemyMoves());
+       
     }
+
 
     public string getTileTag()
     {
         return tileTag;
+    }
+
+    IEnumerator EnemyMoves()
+    {
+        enemyMovementActive = true;
+        if (myPlayerScript.hasFinishedTurn())
+        {
+    
+            Enemy enemyScript;
+            foreach (GameObject enemyObject in enemiesList)
+            {
+                enemyScript = enemyObject.GetComponent<Enemy>();
+                enemyScript.move();
+
+                yield return 0;
+            }
+        }
+
+        enemyMovementActive = false;
     }
 
     public float getCellSize()

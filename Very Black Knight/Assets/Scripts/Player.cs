@@ -70,6 +70,7 @@ public class Player : MonoBehaviour
                 if (movementScript.checkInput())
                 {
                     currentState = (int)State.walking;
+                    finishedTurn = true;
                 }
 
                 break;
@@ -84,6 +85,8 @@ public class Player : MonoBehaviour
                 else {
                     myAnimator.SetBool("Walking", false);
                     currentState = (int)State.idle;
+                    finishedTurn = false;
+                    
                 }
 
                 break;

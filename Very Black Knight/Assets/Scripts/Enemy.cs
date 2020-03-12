@@ -4,6 +4,81 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
+    private float cellSize;
+    private Game game;
+
+    public float height;
+    public float timeToReach;
+    float timeCounter;
+    bool doingMovement;
+
+    Vector3 startingPosition;
+    Vector3 newPosition;
+    Vector3 direction;
+
+
     public abstract void move();
 
+    protected void initialize()
+    {
+        game = GameObject.Find("GameController").GetComponent<Game>();
+        cellSize = game.cellSize;
+    }
+
+    protected bool canMakeMovement(float xMove, float zMove)
+    {
+        if (!doingMovement)
+        {
+            Vector3 movementVector = new Vector3();
+
+            //Transform desired destination into grid coordinates
+            movementVector.x = Mathf.Round((transform.position.x + xMove * cellSize) / cellSize) * cellSize;
+            movementVector.z = Mathf.Round((transform.position.z + zMove * cellSize) / cellSize) * cellSize;
+
+            //Start movement
+            if (game.canMakeMovement(movementVector.x, movementVector.z))
+            {
+                //It is necesarry to store point B for Interpolation
+                startingPosition = transform.position;
+
+
+                //It is necesarry to store point B for Interpolation
+                newPosition = movementVector;
+
+                //We make sure the player's height is not the tile's height
+                newPosition.y = height;
+
+                doingMovement = true;
+                timeCounter = 0;
+
+                direction = newPosition - startingPosition;
+
+                direction = Vector3.Normalize(direction);
+
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    protected void makeMovement()
+    {
+        //Movement on the player are done if dointMovement is true
+        if (doingMovement)
+        {
+            //Divide by timeToReach implies it will take such time until arrival
+            timeCounter += Time.deltaTime / timeToReach;
+            transform.position = Vector3.Lerp(startingPosition, newPosition, timeCounter);
+
+            //Aproximating to the point
+            if (Vector3.Distance(transform.position, newPosition) < 0.05)
+            {
+                transform.position = newPosition;
+                doingMovement = false;
+            }
+
+
+        }
+    }
 }

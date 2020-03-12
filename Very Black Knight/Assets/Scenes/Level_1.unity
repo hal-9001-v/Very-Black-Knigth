@@ -5969,9 +5969,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileTag: tile
   cellSize: 1
-  ambientLightRed: 0
-  ambientLightGreen: 0
-  ambientLightBlue: 0
 --- !u!4 &175779954
 Transform:
   m_ObjectHideFlags: 0
@@ -20990,6 +20987,7 @@ MonoBehaviour:
   height: 1
   timeToReach: 0.35
   doingMovement: 0
+  inputEnable: 1
 --- !u!95 &674190844
 Animator:
   serializedVersion: 3
@@ -26873,6 +26871,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1.8109659e-19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5574657383665397177, guid: 177c1087c6cdbdd40b3042f18f5e93dc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5586047289365232315, guid: 177c1087c6cdbdd40b3042f18f5e93dc,
         type: 3}
@@ -62418,7 +62421,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 160
-  field of view: 30
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
