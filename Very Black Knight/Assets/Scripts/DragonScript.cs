@@ -6,7 +6,9 @@ public class DragonScript : Enemy
 {
     List<Node> openNodes;
     List<Node> closedNodes;
+
     Node currentNode;
+    Vector2 target;
 
     protected float cellSize;
 
@@ -38,10 +40,31 @@ public class DragonScript : Enemy
 
     }
 
-    private bool generateChildren() {
+    private void generateChild(int x, int y) {
+        Node node;
+        Node listNode;
 
-
-        return true;
+        node = new Node(currentNode, target, x, y);
+        
+        //if closedNodes doesnt contain node
+        if (listContains(closedNodes,node) == null) {
+            
+            //If openNodes doesnt contain node
+            if (listContains(openNodes,node) == null)
+            {
+                openNodes.Add(node);
+            }
+            //If openNodes contains node
+            else {
+                listNode = listContains(openNodes, node);
+        
+                //If g in list is bigger, set new parent and recalculate f
+                if (listNode.getG() > node.getG()) {
+                    listNode.setParent(currentNode);
+                    listNode.recalculateFG();
+                }
+            }
+        }
     }
 
     public float aPathValue(int x, int z) {
@@ -50,12 +73,14 @@ public class DragonScript : Enemy
         return 0;
     }
 
-    public class Node {
+    public class Node : System.IComparable
+    {
         
-        public float g;
-        public float f;
+        private int f;
+        private int g;
 
         Vector2 position;
+        Vector2 target;
 
         static float cellSize = 1;
 
@@ -63,38 +88,77 @@ public class DragonScript : Enemy
 
         public Node(Node parent, Vector2 target, int x, int y) {
             this.parent = parent;
+            this.target = target;
 
             position = parent.getPosition();
 
-            position.x += x * cellSize;
-            position.y += y * cellSize;
+            position.x += x;
+            position.y += y;
 
-            //G is the distance between parent and this node
-            g = parent.getG() + Vector2.Distance(position,parent.getPosition());
-            //F is g + distance to target in Manhattan Distance
-            f = g + Mathf.Abs(position.x - target.x) + Mathf.Abs(position.y - target.y);
+            recalculateFG();
 
         }
 
-        public float getG() {
+        public int getG() {
             return g;
         }
 
-        public void setG(float g) {
+        public void setG(int g) {
             this.g = g;
         }
 
-        public float getF() {
+        public int getF() {
             return f;
         }
 
-        public void setF(float f) {
+        public void setF(int f) {
             this.f = f;
         }
 
         public Vector2 getPosition() {
             return position;
         }
-    
+
+        public Node getParent() {
+            return parent;
+        }
+
+        public void setParent(Node parent) {
+            this.parent = parent;
+        }
+
+        public int CompareTo(object obj)
+        {
+            Node otherNode = obj as Node;
+
+            //Lowest f is better
+            if (f < otherNode.getF())
+            {
+                return -1;
+            }
+
+            return 1;
+            
+        }
+
+        public void recalculateFG() {
+            //G is the distance between parent and this node
+            g = parent.getG() + (int)Mathf.Abs(position.x - target.x) + (int)Mathf.Abs(position.y - target.y);
+
+            //F is g + distance to target in Manhattan Distance
+            f = g + (int)Mathf.Abs(position.x - target.x) + (int)Mathf.Abs(position.y - target.y);
+        }
     }
+
+
+    Node listContains(List<Node> list, Node nodeToCompare) {
+        foreach (Node node in list) {
+            if (node.getPosition() == nodeToCompare.getPosition()) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+
 }

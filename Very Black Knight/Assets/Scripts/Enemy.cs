@@ -81,6 +81,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    //Checks wether a tile exists in current position + (x,y)*cellSize on grid
     protected bool tileExists(float x, float y)
     {
 
