@@ -7,7 +7,6 @@ public abstract class Enemy : MonoBehaviour
     private float cellSize;
     private Game game;
 
-    public float height;
     public float timeToReach;
     float timeCounter;
     bool doingMovement;
@@ -46,7 +45,7 @@ public abstract class Enemy : MonoBehaviour
                 newPosition = movementVector;
 
                 //We make sure the player's height is not the tile's height
-                newPosition.y = height;
+                newPosition.y = transform.position.y;
 
                 doingMovement = true;
                 timeCounter = 0;
@@ -81,4 +80,18 @@ public abstract class Enemy : MonoBehaviour
 
         }
     }
+
+    protected bool tileExists(float x, float y)
+    {
+
+        Vector2 auxiliarVector = new Vector2();
+
+        //Transform desired destination into grid coordinates
+        auxiliarVector.x = Mathf.Round((transform.position.x + x * cellSize) / cellSize) * cellSize;
+        auxiliarVector.y = Mathf.Round((transform.position.z + y * cellSize) / cellSize) * cellSize;
+
+        return game.canMakeMovement(x, y);
+
+    }
+
 }

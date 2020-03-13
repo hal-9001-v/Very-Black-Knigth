@@ -93,7 +93,9 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
+                    return true;
                 }
+
 
             }
 
@@ -109,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+                    return true;
                 }
             }
 
