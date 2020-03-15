@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
+
     //Tiletag is the tag name which floor tiles have
     public string tileTag;
 
@@ -27,7 +28,7 @@ public class Game : MonoBehaviour
     bool enemyMovementActive = false;
 
     //Player Level Manager
-    public int playerLevel = 1;
+    public int playerLevel;
    public TextMeshProUGUI lvlTxt;
 
 
@@ -53,6 +54,9 @@ public class Game : MonoBehaviour
 
         return false;
     }
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -108,6 +112,16 @@ public class Game : MonoBehaviour
         lvlTxt.text = playerLevel.ToString();
 
     }
+
+
+    void Awake()
+    {
+
+        DontDestroyOnLoad(gameObject);
+
+
+    }
+
 
     // Update is called once per frame
     void Update()
