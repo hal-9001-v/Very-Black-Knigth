@@ -15,7 +15,6 @@ public abstract class Enemy : MonoBehaviour
     Vector3 newPosition;
     Vector3 direction;
 
-
     public abstract void move();
 
     protected void initialize()

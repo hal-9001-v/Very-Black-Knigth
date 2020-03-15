@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Priority_Queue;
 public class DragonScript : Enemy
 {
-    List<Node> openNodes;
-    List<Node> closedNodes;
-
+    SimplePriorityQueue<Node> openNodes;
+    SimplePriorityQueue<Node> closedNodes;
+    
     Node currentNode;
     Vector2 target;
 
@@ -37,32 +37,50 @@ public class DragonScript : Enemy
 
     private void pathFinder(GameObject target) {
 
+        openNodes.Clear();
+        closedNodes.Clear();
+       
+        Vector2 targetVector;
+        targetVector.x = target.transform.position.x / cellSize;
+        targetVector.y = target.transform.position.z / cellSize;
 
+        Node auxNode = new Node(null, targetVector, 0,0);
+        openNodes.Enqueue(auxNode,0);
+
+        while (openNodes.Count > 0) {
+
+            currentNode = openNodes.Dequeue();
+
+            //if(currentNode == )
+
+            closedNodes.Enqueue(currentNode, currentNode.getF());
+
+            generateChild(1,0);
+            generateChild(-1,0);
+            generateChild(0,1);
+            generateChild(0,-1);
+
+
+
+        }
     }
 
     private void generateChild(int x, int y) {
         Node node;
-        Node listNode;
-
         node = new Node(currentNode, target, x, y);
         
         //if closedNodes doesnt contain node
-        if (listContains(closedNodes,node) == null) {
+        if (!closedNodes.Contains(node)) {
             
             //If openNodes doesnt contain node
-            if (listContains(openNodes,node) == null)
+            if (!openNodes.Contains(node))
             {
-                openNodes.Add(node);
+                openNodes.Enqueue(node,node.getF());
             }
             //If openNodes contains node
             else {
-                listNode = listContains(openNodes, node);
-        
                 //If g in list is bigger, set new parent and recalculate f
-                if (listNode.getG() > node.getG()) {
-                    listNode.setParent(currentNode);
-                    listNode.recalculateFG();
-                }
+
             }
         }
     }
@@ -132,9 +150,9 @@ public class DragonScript : Enemy
             Node otherNode = obj as Node;
 
             //Lowest f is better
-            if (f < otherNode.getF())
+            if (otherNode.getPosition() == position)
             {
-                return -1;
+                //return ;
             }
 
             return 1;
