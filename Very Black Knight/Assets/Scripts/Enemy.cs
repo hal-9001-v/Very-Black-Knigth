@@ -4,23 +4,39 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    private float cellSize;
-    private Game game;
+    protected float cellSize;
+    protected Game game;
+    protected Animator myAnimator;
 
     public float timeToReach;
     float timeCounter;
-    bool doingMovement;
+    protected bool doingMovement;
+
+    protected GameObject currentTile;
+
+    Color floorColor;
+    protected Color attackColor;
 
     Vector3 startingPosition;
     Vector3 newPosition;
     Vector3 direction;
 
-    public abstract void move();
+
+    public abstract void startTurn();
+    public abstract void endOfMovementActions();
 
     protected void initialize()
     {
         game = GameObject.Find("GameController").GetComponent<Game>();
         cellSize = game.cellSize;
+
+        myAnimator = gameObject.GetComponent<Animator>();
+
+        floorColor = new Color(1, 0, 0);
+        attackColor = new Color(0.5f,0,0);
+        currentTile = game.getTile(transform.position);
+        currentTile.GetComponent<MeshRenderer>().material.color += floorColor;
+
     }
 
     protected bool canMakeMovement(float xMove, float zMove)
@@ -46,6 +62,9 @@ public abstract class Enemy : MonoBehaviour
                 //We make sure the player's height is not the tile's height
                 newPosition.y = transform.position.y;
 
+                colorFloor(newPosition);
+
+
                 doingMovement = true;
                 timeCounter = 0;
 
@@ -60,6 +79,7 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
+    //Fixed Update
     protected void makeMovement()
     {
         //Movement on the player are done if dointMovement is true
@@ -74,24 +94,33 @@ public abstract class Enemy : MonoBehaviour
             {
                 transform.position = newPosition;
                 doingMovement = false;
+
+                endOfMovementActions();
+
             }
-
-
         }
     }
 
     //Checks wether a tile exists in current position + (x,y)*cellSize on grid
     protected bool tileExists(float x, float y)
     {
-
         Vector2 auxiliarVector = new Vector2();
 
         //Transform desired destination into grid coordinates
         auxiliarVector.x = Mathf.Round((transform.position.x + x * cellSize) / cellSize) * cellSize;
         auxiliarVector.y = Mathf.Round((transform.position.z + y * cellSize) / cellSize) * cellSize;
 
-        return game.canMakeMovement(x, y);
+        return game.canMakeMovement(auxiliarVector.x, auxiliarVector.y);
 
     }
 
+    void colorFloor(Vector3 positionVector)
+    {
+        currentTile.GetComponent<MeshRenderer>().material.color -= floorColor;
+
+        currentTile = game.getTile(positionVector);
+
+        currentTile.GetComponent<MeshRenderer>().material.color += floorColor;
+
+    }
 }

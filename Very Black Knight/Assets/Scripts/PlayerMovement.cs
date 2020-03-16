@@ -48,11 +48,11 @@ public class PlayerMovement : MonoBehaviour
             //Forward
             if (Input.GetKeyDown(KeyCode.UpArrow) | Input.GetKeyDown(KeyCode.W))
             {
-                Debug.Log("Up or W key was pressed");
+                //Debug.Log("Up or W key was pressed");
 
                 if (!canMakeMovement(1, 0))
                 {
-                    Debug.Log("Can't move forward");
+                    //Debug.Log("Can't move forward");
                 }
                 else
                 {
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
                     return true;
                 }
 
-                
+
 
             }
 
@@ -68,11 +68,11 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.DownArrow) | Input.GetKeyDown(KeyCode.S))
             {
 
-                Debug.Log("Down or S key was pressed");
+                //Debug.Log("Down or S key was pressed");
 
                 if (!canMakeMovement(-1, 0))
                 {
-                    Debug.Log("Can't move BackWard");
+                    //Debug.Log("Can't move BackWard");
                 }
                 else
                 {
@@ -84,11 +84,11 @@ public class PlayerMovement : MonoBehaviour
             //Right
             if (Input.GetKeyDown(KeyCode.RightArrow) | Input.GetKeyDown(KeyCode.D))
             {
-                Debug.Log("Right or D key was pressed");
+                //Debug.Log("Right or D key was pressed");
 
                 if (!canMakeMovement(0, -1))
                 {
-                    Debug.Log("Can't move Right");
+                    // Debug.Log("Can't move Right");
                 }
                 else
                 {
@@ -102,11 +102,11 @@ public class PlayerMovement : MonoBehaviour
             //Left
             if (Input.GetKeyDown(KeyCode.LeftArrow) | Input.GetKeyDown(KeyCode.A))
             {
-                Debug.Log("Left or A key was pressed");
+                //Debug.Log("Left or A key was pressed");
 
                 if (!canMakeMovement(0, 1))
                 {
-                    Debug.Log("Can't move Left");
+                    //Debug.Log("Can't move Left");
                 }
                 else
                 {

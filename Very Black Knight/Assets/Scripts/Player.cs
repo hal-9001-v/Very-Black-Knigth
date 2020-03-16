@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
 
     PlayerMovement movementScript;
     public float idleSpeed = 1;
-    private float walkingSpeed;
+
+    int health = 5;
 
     Animator myAnimator;
 
@@ -16,14 +17,15 @@ public class Player : MonoBehaviour
 
     enum State
     {
-        walking = 1,
         idle = 0,
+        walking = 1,
+        dead = 2
     }
 
-   //Animation Times
-   /*
-    Walking Animation is 1.250 long
-         */
+    //Animation Times
+    /*
+     Walking Animation is 1.250 long
+          */
 
     // Start is called before the first frame update
     void Start()
@@ -38,12 +40,6 @@ public class Player : MonoBehaviour
         if (movementScript == null)
         {
             Debug.LogError("Movement Script is missing!");
-
-        }
-        else {
-            walkingSpeed = movementScript.timeToReach;
-            walkingSpeed = walkingSpeed / 1.25f;
-            
 
         }
 
@@ -61,44 +57,73 @@ public class Player : MonoBehaviour
     void Update()
     {
 
+
         switch (currentState)
         {
             //Idle
             case 0:
 
+                finishedTurn = false;
 
                 if (movementScript.checkInput())
                 {
                     currentState = (int)State.walking;
-                    finishedTurn = true;
-                }
 
+                }
                 break;
 
             //Walking
-            //Walking animation is 1.250 long
             case 1:
                 if (movementScript.doingMovement)
                 {
                     myAnimator.SetBool("Walking", true);
                 }
-                else {
+                else
+                {
                     myAnimator.SetBool("Walking", false);
                     currentState = (int)State.idle;
-                    finishedTurn = false;
-                    
+
+                    finishedTurn = true;
                 }
 
                 break;
+            //dead
+            case 2:
 
+                break;
+
+            //Hurt
+            case 3:
+
+                break;
 
         }
 
     }
 
-    public bool hasFinishedTurn() {
+
+    public bool hasFinishedTurn()
+    {
 
         return finishedTurn;
+    }
+
+    public void hurt(int dmg)
+    {
+        health -= dmg;
+
+        if (health <= 0)
+        {
+            currentState = (int)State.dead;
+            myAnimator.SetTrigger("dead");
+
+        }
+        else
+        {
+
+            myAnimator.SetTrigger("hurt");
+        }
+
     }
 
 }

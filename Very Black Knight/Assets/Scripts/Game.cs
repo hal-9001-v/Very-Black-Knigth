@@ -39,6 +39,7 @@ public class Game : MonoBehaviour
                 {
                     Debug.Log("End of Game");
                 }
+
                 return true;
             }
         }
@@ -47,7 +48,7 @@ public class Game : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerObject = GameObject.Find("Player");
 
@@ -58,7 +59,7 @@ public class Game : MonoBehaviour
         //Find enemies in scene
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-           
+
             enemiesList.Add(enemy);
 
         }
@@ -100,9 +101,8 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!enemyMovementActive)
-        StartCoroutine(EnemyMoves());
-       
+        if (!enemyMovementActive)
+            StartCoroutine(EnemyMoves());
     }
 
 
@@ -116,22 +116,34 @@ public class Game : MonoBehaviour
         enemyMovementActive = true;
         if (myPlayerScript.hasFinishedTurn())
         {
-    
             Enemy enemyScript;
             foreach (GameObject enemyObject in enemiesList)
             {
                 enemyScript = enemyObject.GetComponent<Enemy>();
-                enemyScript.move();
+
+                enemyScript.startTurn();
 
                 yield return 0;
             }
         }
-
         enemyMovementActive = false;
     }
 
     public float getCellSize()
     {
         return cellSize;
+    }
+
+    public GameObject getTile(Vector3 positionVector)
+    {
+        foreach (GameObject tile in tiles)
+        {
+            if (tile.GetComponent<GridTile>().movable(positionVector.x, positionVector.z))
+            {
+                return tile;
+            }
+        }
+
+        return null;
     }
 }
