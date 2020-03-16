@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Very Black Knight/Assets/Prefabs/Chinjoka/chinjokaAnimator.controller.meta
 guid: 589cd4cf10b858c41beccf6dbfe4b4e7
 NativeFormatImporter:
+=======
+guid: 16c81a61a99fe1c48b1710b2cb5f6ba6
+folderAsset: yes
+DefaultImporter:
+>>>>>>> 0dc6dda30a93fcc180f2bde6f8ef3f02e1996099:Very Black Knight/Assets/Prefabs/plants.meta
   externalObjects: {}
   mainObjectFileID: 0
   userData: 
