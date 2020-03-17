@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
+using UnityEngine.SceneManagement;
 
 //Author: Vic
 //Game class is made to link elements within the game. Thus, it can  be used to modify many elements.
 
 public class Game : MonoBehaviour
 {
+
     //Tiletag is the tag name which floor tiles have
     public string tileTag;
 
@@ -25,6 +27,11 @@ public class Game : MonoBehaviour
 
     bool enemyMovementActive = false;
 
+    //Player Level Manager
+    public int playerLevel;
+   public TextMeshProUGUI lvlTxt;
+
+
     //This function is called to check wether floor tiles are next to the given coordinates, thus they are accessble
     public bool canMakeMovement(float x, float y)
     {
@@ -38,6 +45,8 @@ public class Game : MonoBehaviour
                 if (go.GetComponent<GridTile>().endingTile)
                 {
                     Debug.Log("End of Game");
+                    levelUp();
+                    SceneManager.LoadScene("Level_" + playerLevel);
                 }
                 return true;
             }
@@ -45,6 +54,9 @@ public class Game : MonoBehaviour
 
         return false;
     }
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -95,14 +107,30 @@ public class Game : MonoBehaviour
         {
             Debug.LogError("There are " + startingTileCounter + " starting Tiles");
         }
+
+        //Player Level init
+        lvlTxt.text = playerLevel.ToString();
+
     }
+
+
+    void Awake()
+    {
+
+        DontDestroyOnLoad(gameObject);
+
+
+    }
+
 
     // Update is called once per frame
     void Update()
     {
         if(!enemyMovementActive)
         StartCoroutine(EnemyMoves());
-       
+
+      
+
     }
 
 
@@ -133,5 +161,15 @@ public class Game : MonoBehaviour
     public float getCellSize()
     {
         return cellSize;
+    }
+
+
+
+   public void levelUp()
+    {
+
+        playerLevel++;
+        lvlTxt.text = playerLevel.ToString();
+
     }
 }
