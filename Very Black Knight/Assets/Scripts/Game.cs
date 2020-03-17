@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
 
     //Player Level Manager
     public int playerLevel;
-   public TextMeshProUGUI lvlTxt;
+    public TextMeshProUGUI lvlTxt;
 
 
     //This function is called to check wether floor tiles are next to the given coordinates, thus they are accessble
@@ -48,6 +48,7 @@ public class Game : MonoBehaviour
                     levelUp();
                     SceneManager.LoadScene("Level_" + playerLevel);
                 }
+
                 return true;
             }
         }
@@ -59,7 +60,7 @@ public class Game : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerObject = GameObject.Find("Player");
 
@@ -67,10 +68,12 @@ public class Game : MonoBehaviour
 
         enemiesList = new List<GameObject>();
 
+        DontDestroyOnLoad(gameObject);
+
         //Find enemies in scene
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-           
+
             enemiesList.Add(enemy);
 
         }
@@ -114,22 +117,11 @@ public class Game : MonoBehaviour
     }
 
 
-    void Awake()
-    {
-
-        DontDestroyOnLoad(gameObject);
-
-
-    }
-
-
     // Update is called once per frame
     void Update()
     {
-        if(!enemyMovementActive)
-        StartCoroutine(EnemyMoves());
-
-      
+        if (!enemyMovementActive)
+            StartCoroutine(EnemyMoves());
 
     }
 
@@ -144,17 +136,16 @@ public class Game : MonoBehaviour
         enemyMovementActive = true;
         if (myPlayerScript.hasFinishedTurn())
         {
-    
             Enemy enemyScript;
             foreach (GameObject enemyObject in enemiesList)
             {
                 enemyScript = enemyObject.GetComponent<Enemy>();
-                enemyScript.move();
+
+                enemyScript.startTurn();
 
                 yield return 0;
             }
         }
-
         enemyMovementActive = false;
     }
 
@@ -163,13 +154,26 @@ public class Game : MonoBehaviour
         return cellSize;
     }
 
+    public GameObject getTile(Vector3 positionVector)
+    {
+        foreach (GameObject tile in tiles)
+        {
+            if (tile.GetComponent<GridTile>().movable(positionVector.x, positionVector.z))
+            {
+                return tile;
+            }
+        }
 
+        return null;
 
-   public void levelUp()
+    }
+
+    public void levelUp()
     {
 
         playerLevel++;
         lvlTxt.text = playerLevel.ToString();
 
     }
+
 }
