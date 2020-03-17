@@ -80822,8 +80822,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 953111279}
     m_Modifications:
     - target: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
-=======
->>>>>>> parent of 06939a0... Level2MazeDone
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.6083193
