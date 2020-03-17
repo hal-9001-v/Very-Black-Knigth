@@ -42560,71 +42560,41 @@ PrefabInstance:
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
-=======
-    - target: {fileID: 5888861469733881193, guid: 4e80a41332efaeb4fbfd0e309c333686,
->>>>>>> parent of 0ac3470... Level2MazeDone
         type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
-=======
-    - target: {fileID: 5888861469733881193, guid: 4e80a41332efaeb4fbfd0e309c333686,
->>>>>>> parent of 0ac3470... Level2MazeDone
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
-=======
-    - target: {fileID: 5888861469733881193, guid: 4e80a41332efaeb4fbfd0e309c333686,
->>>>>>> parent of 0ac3470... Level2MazeDone
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
         type: 3}
       propertyPath: m_RootOrder
       value: 340
       objectReference: {fileID: 0}
     - target: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
-=======
-    - target: {fileID: 5888861469733881193, guid: 4e80a41332efaeb4fbfd0e309c333686,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 73
-      objectReference: {fileID: 0}
-    - target: {fileID: 5888861469733881193, guid: 4e80a41332efaeb4fbfd0e309c333686,
->>>>>>> parent of 0ac3470... Level2MazeDone
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
-=======
-    - target: {fileID: 5888861469733881193, guid: 4e80a41332efaeb4fbfd0e309c333686,
->>>>>>> parent of 0ac3470... Level2MazeDone
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
-=======
-    - target: {fileID: 5888861469733881193, guid: 4e80a41332efaeb4fbfd0e309c333686,
->>>>>>> parent of 0ac3470... Level2MazeDone
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 4172446619205294585, guid: caf01a4b80f68f949a8a6957335a5355,
         type: 3}
       propertyPath: m_Name
@@ -42632,7 +42602,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: caf01a4b80f68f949a8a6957335a5355, type: 3}
---- !u!4 &895941149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
     type: 3}
@@ -96833,25 +96802,8 @@ PrefabInstance:
     - target: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
         type: 3}
       propertyPath: m_RootOrder
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 0ac3470... Level2MazeDone
       value: 259
-=======
-      value: 273
->>>>>>> 0dc6dda30a93fcc180f2bde6f8ef3f02e1996099
-<<<<<<< HEAD
-=======
       value: 274
->>>>>>> parent of 06939a0... Level2MazeDone
-=======
-      value: 274
->>>>>>> parent of 06939a0... Level2MazeDone
-=======
->>>>>>> parent of 0ac3470... Level2MazeDone
       objectReference: {fileID: 0}
     - target: {fileID: 1134022888724376554, guid: caf01a4b80f68f949a8a6957335a5355,
         type: 3}
