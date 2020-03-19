@@ -102,7 +102,10 @@ public class Game : MonoBehaviour
     void Update()
     {
         if (!enemyMovementActive)
+        {
+            enemyMovementActive = true;
             StartCoroutine(EnemyMoves());
+        }
     }
 
 
@@ -113,7 +116,6 @@ public class Game : MonoBehaviour
 
     IEnumerator EnemyMoves()
     {
-        enemyMovementActive = true;
         if (myPlayerScript.hasFinishedTurn())
         {
             Enemy enemyScript;

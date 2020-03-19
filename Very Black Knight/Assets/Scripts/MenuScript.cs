@@ -7,12 +7,6 @@ using UnityEngine.UI;
 public class MenuScript : MonoBehaviour
 {
     bool free = true;
-    Image myImage;
-
-    void Start()
-    {
-        myImage = gameObject.GetComponent<Image>();
-    }
 
 
     public void fadeOutGameObject(GameObject go)
@@ -33,16 +27,6 @@ public class MenuScript : MonoBehaviour
     }
 
 
-    public void loadScene(GameObject hoi)
-    {
-
-        if (free)
-        {
-
-            StartCoroutine(LoadSceneWithFade("HEY"));
-            free = false;
-        }
-    }
 
     public void fadeInGameObject(GameObject go) {
 
@@ -72,25 +56,6 @@ public class MenuScript : MonoBehaviour
         yield return 0;
 
 
-    }
-
-    private IEnumerator LoadSceneWithFade(string scene)
-    {
-
-        for (int i = 0; i < 100; i++)
-        {
-
-            myImage.canvasRenderer.SetAlpha(myImage.canvasRenderer.GetAlpha() - 0.05f);
-
-            yield return new WaitForSeconds(0.01f);
-
-        }
-
-
-        SceneManager.LoadScene(scene);
-
-
-        yield return 0;
     }
 
     private IEnumerator FadeOutGameObject(GameObject go, float seconds)
