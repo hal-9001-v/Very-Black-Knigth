@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class MenuScript : MonoBehaviour
 {
-    bool free = true;
+    public UnityEvent startGame;
 
+    void Start() {
+        startGame.Invoke();
+    }
 
     public void fadeOutGameObject(GameObject go)
     {
@@ -26,7 +30,14 @@ public class MenuScript : MonoBehaviour
 
     }
 
+    public void loadNextScene() {
+        Debug.LogWarning("New Scene Baby :D");
+    }
 
+    public void exitGame(){
+        Debug.LogWarning("End of game");
+        Application.Quit();
+    } 
 
     public void fadeInGameObject(GameObject go) {
 
