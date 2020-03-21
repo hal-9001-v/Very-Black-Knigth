@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class PlayerGUI : MonoBehaviour
 {
+    public GameObject canvasObject;
+
     //################################
     //HEALTH
+    public GameObject levelUpScreenObject;
     public GameObject colorBarObject;
     Image colorBar;
     public GameObject backgroundBarObject;
-    Image backgroundBar;
+
 
     float maxHealth;
     Vector3 maxLocalScale;
@@ -21,6 +24,14 @@ public class PlayerGUI : MonoBehaviour
     //LEVEL
     public GameObject levelTextContainer;
     Text levelText;
+
+    public GameObject upgradesLeftObject;
+    private Text upgradesLeftText;
+
+    public Text movementText;
+    public Text healthText;
+
+    
     //###############################
 
 
@@ -29,7 +40,7 @@ public class PlayerGUI : MonoBehaviour
     {
 
         colorBar = colorBarObject.GetComponent<Image>();
-        backgroundBar = backgroundBarObject.GetComponent<Image>();
+
 
         colorBar.rectTransform.pivot = new Vector2(0, 0.5f);
         colorBar.fillMethod = Image.FillMethod.Horizontal;
@@ -37,17 +48,23 @@ public class PlayerGUI : MonoBehaviour
         maxLocalScale = colorBar.rectTransform.localScale;
 
         levelText = levelTextContainer.GetComponent<Text>();
+
+        upgradesLeftText = upgradesLeftObject.GetComponent<Text>();
+
+        levelUpScreenObject.SetActive(false);
+  
     }
 
     public void setCurrentLevel(int level)
     {
-        levelText.text = "Current LVL: " + level;
+        levelText.text = ""+level;
     }
 
     public void setMaxHealth(float maxHealth)
     {
 
         this.maxHealth = maxHealth;
+        setHealth(maxHealth);
 
     }
 
@@ -64,5 +81,19 @@ public class PlayerGUI : MonoBehaviour
         colorBar.rectTransform.localScale = actualScale;
 
 
+    }
+
+    public void setLevelUpIndicators(int movementLvl, int healthLvl, int upgrades) {
+        movementText.text = "Current Lvl: " + movementLvl;
+        healthText.text = "Current Lvl: " + healthLvl;
+        upgradesLeftText.text = "UPGRADES LEFT: "+upgrades;
+
+        levelUpScreenObject.SetActive(true);
+        canvasObject.GetComponent<GraphicRaycaster>().enabled = true;
+    }
+
+    public void hideLevelUpIndicators() {
+        levelUpScreenObject.SetActive(false);
+        canvasObject.GetComponent<GraphicRaycaster>().enabled = false;
     }
 }

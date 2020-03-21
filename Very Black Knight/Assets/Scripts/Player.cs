@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private int playerLevel = 1;
-
     public GameObject playerGuiObject;
     private PlayerGUI myPlayerGUI;
 
-    private int currentState;
-
     PlayerMovement movementScript;
-    public float idleSpeed = 1;
-
-    float health = 5;
-
     Animator myAnimator;
 
+    float MAXHEALTH = 5;
+    float health;
+
+    private int playerLevel;
+    private int upgrades;
+
+    public int movementLevel { get; private set; }
+    public int healthLevel { get; private set; }
+
+
+
+    private int currentState;
     bool finishedTurn = false;
+    bool playerActive = true;
 
     enum State
     {
@@ -26,7 +31,6 @@ public class Player : MonoBehaviour
         walking = 1,
         dead = 2
     }
-
 
     // Start is called before the first frame update
     void Start()
@@ -54,54 +58,64 @@ public class Player : MonoBehaviour
 
         currentState = (int)State.idle;
 
-        myPlayerGUI.setMaxHealth(health);
+        
+        //Initialize Player
+        health = MAXHEALTH;
+        playerLevel = 1;
+
+        myPlayerGUI.setMaxHealth(MAXHEALTH);
         myPlayerGUI.setCurrentLevel(playerLevel);
+
+        healthLevel = 1;
+        movementLevel = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
 
-
-        switch (currentState)
+        if (playerActive)
         {
-            //Idle
-            case 0:
+            switch (currentState)
+            {
+                //Idle
+                case 0:
 
-                finishedTurn = false;
+                    finishedTurn = false;
 
-                if (movementScript.checkInput())
-                {
-                    currentState = (int)State.walking;
+                    if (movementScript.checkInput())
+                    {
+                        currentState = (int)State.walking;
 
-                }
-                break;
+                    }
+                    break;
 
-            //Walking
-            case 1:
-                if (movementScript.doingMovement)
-                {
-                    myAnimator.SetBool("Walking", true);
-                }
-                else
-                {
-                    myAnimator.SetBool("Walking", false);
-                    currentState = (int)State.idle;
+                //Walking
+                case 1:
+                    if (movementScript.doingMovement)
+                    {
+                        myAnimator.SetBool("Walking", true);
+                    }
+                    else
+                    {
+                        myAnimator.SetBool("Walking", false);
+                        currentState = (int)State.idle;
 
-                    finishedTurn = true;
-                }
+                        finishedTurn = true;
+                    }
 
-                break;
-            //dead
-            case 2:
+                    break;
+                //dead
+                case 2:
 
-                break;
+                    break;
 
-            //Hurt
-            case 3:
+                //Hurt
+                case 3:
 
-                break;
+                    break;
 
+            }
         }
 
     }
@@ -132,5 +146,74 @@ public class Player : MonoBehaviour
 
     }
 
-    
+    public void levelUp(int ups)
+    {
+        playerActive = false;
+
+        upgrades = ups;
+        playerLevel += ups;
+        myPlayerGUI.setCurrentLevel(playerLevel);
+
+        displayLevelUpScreen();
+    }
+
+    public void activePlayer(bool b) {
+        playerActive = b;
+    }
+
+    public void upgradeHealth() {
+        if (upgrades > 0) {
+            upgrades--;
+
+            healthLevel++;
+
+            if (healthLevel == 2) {
+                MAXHEALTH += 2;
+                health = MAXHEALTH;
+
+                myPlayerGUI.setMaxHealth(MAXHEALTH);
+                myPlayerGUI.setHealth(health);
+            }
+        }
+    }
+    public void upgradeMovement() {
+        if (upgrades > 0)
+        {
+            upgrades--;
+
+            movementLevel++;
+
+            if (movementLevel == 2)
+            {
+                movementScript.setTimeToReach(0.3f);
+            }
+        }
+
+        if (movementLevel == 2) {
+            //movementScript.timeToReach;
+        }
+    }
+    public void upgradeAttack() {
+        if (upgrades > 0)
+        {
+            upgrades--;
+
+            movementLevel++;
+        }
+    }
+
+    private void displayLevelUpScreen() {
+        playerActive = false;
+
+        myPlayerGUI.setLevelUpIndicators(movementLevel, healthLevel, upgrades);
+
+    }
+
+    public void hideLevelUpScreen() {
+        playerActive = true;
+
+        myPlayerGUI.hideLevelUpIndicators();
+    }
+
+
 }

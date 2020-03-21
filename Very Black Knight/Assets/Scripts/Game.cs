@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 //Author: Vic
@@ -25,6 +26,8 @@ public class Game : MonoBehaviour
 
     bool enemyMovementActive = false;
 
+    public UnityEvent atEndTile;
+
     //This function is called to check wether floor tiles are next to the given coordinates, thus they are accessble
     public bool canMakeMovement(float x, float y)
     {
@@ -37,7 +40,8 @@ public class Game : MonoBehaviour
 
                 if (go.GetComponent<GridTile>().endingTile)
                 {
-                    Debug.Log("End of Game");
+                    Debug.Log("End of Scene");
+                    atEndTile.Invoke();
                 }
 
                 return true;
@@ -147,5 +151,11 @@ public class Game : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void loadNextLevel() {
+        Debug.LogWarning("NEXT LEVEL");
+
+        myPlayerScript.activePlayer(true);
     }
 }

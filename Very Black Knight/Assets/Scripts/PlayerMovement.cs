@@ -12,8 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private float cellSize;
 
     //Time to finish movement
-    [Range(0, 10)]
-    public float timeToReach = 0.5f;
+    public float MAXTIMETOREACH {get; private set;}
+    public float timeToReach;
     private float timeCounter;
 
     [HideInInspector]
@@ -34,7 +34,8 @@ public class PlayerMovement : MonoBehaviour
         game = gameContainerObject.GetComponent<Game>();
         cellSize = game.getCellSize();
 
-
+        MAXTIMETOREACH = 0.5f;
+        timeToReach = MAXTIMETOREACH;
     }
 
     // Update is called once per frame
@@ -173,5 +174,11 @@ public class PlayerMovement : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void setTimeToReach(float f) {
+        if (f < 0 || f > MAXTIMETOREACH) return;
+
+        timeToReach = f;
     }
 }
