@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private int playerLevel = 1;
+
+    public GameObject playerGuiObject;
+    private PlayerGUI myPlayerGUI;
+
     private int currentState;
 
     PlayerMovement movementScript;
     public float idleSpeed = 1;
 
-    int health = 5;
+    float health = 5;
 
     Animator myAnimator;
 
@@ -22,10 +27,6 @@ public class Player : MonoBehaviour
         dead = 2
     }
 
-    //Animation Times
-    /*
-     Walking Animation is 1.250 long
-          */
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +34,10 @@ public class Player : MonoBehaviour
         //Find Scripts
         movementScript = gameObject.GetComponent<PlayerMovement>();
 
-
         myAnimator = gameObject.GetComponent<Animator>();
+
+        myPlayerGUI = playerGuiObject.GetComponent<PlayerGUI>();
+
 
 
         if (movementScript == null)
@@ -49,8 +52,10 @@ public class Player : MonoBehaviour
 
         }
 
-
         currentState = (int)State.idle;
+
+        myPlayerGUI.setMaxHealth(health);
+        myPlayerGUI.setCurrentLevel(playerLevel);
     }
 
     // Update is called once per frame
@@ -116,14 +121,16 @@ public class Player : MonoBehaviour
         {
             currentState = (int)State.dead;
             myAnimator.SetTrigger("dead");
-
+            myPlayerGUI.setHealth(0);
         }
         else
         {
-
             myAnimator.SetTrigger("hurt");
+            myPlayerGUI.setHealth(health);
+
         }
 
     }
 
+    
 }
