@@ -41,20 +41,32 @@ public class MenuScript : MonoBehaviour
 
     public void fadeInGameObject(GameObject go) {
 
+        FadeObject fo = go.GetComponent<FadeObject>();
+        float waitUntilStartTime;
+
+        if (fo == null) waitUntilStartTime = 0;
+        else {
+            waitUntilStartTime = fo.waitUntilFadeTime;
+        }
+
         float seconds = 0.05f;
 
         if (go.GetComponent<CanvasRenderer>() != null) {
-            StartCoroutine(FadeInGameObject(go, seconds));
+            StartCoroutine(FadeInGameObject(go.GetComponent<CanvasRenderer>(), seconds, waitUntilStartTime));
+            Debug.LogWarning("Problem");
         }
+     
+
+        
 
 
     }
 
-    private IEnumerator FadeInGameObject(GameObject go, float seconds) {
-
-
-        CanvasRenderer myCanvasRenderer = go.GetComponent<CanvasRenderer>();
+    private IEnumerator FadeInGameObject(CanvasRenderer myCanvasRenderer, float seconds, float waitUntilStartTime) {
         float alpha = 0;
+        myCanvasRenderer.SetAlpha(alpha);
+
+        yield return new WaitForSeconds(waitUntilStartTime);
 
         while (alpha < 1) {
             
