@@ -53,7 +53,7 @@ public class MenuScript : MonoBehaviour
 
         if (go.GetComponent<CanvasRenderer>() != null) {
             StartCoroutine(FadeInGameObject(go.GetComponent<CanvasRenderer>(), seconds, waitUntilStartTime));
-            Debug.LogWarning("Problem");
+
         }
      
 
