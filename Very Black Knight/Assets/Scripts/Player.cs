@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     public GameObject playerGuiObject;
     private PlayerGUI myPlayerGUI;
 
+    System.Diagnostics.Stopwatch timer;
+
     PlayerMovement movementScript;
     Animator myAnimator;
 
@@ -18,8 +20,6 @@ public class Player : MonoBehaviour
 
     public int movementLevel { get; private set; }
     public int healthLevel { get; private set; }
-
-
 
     private int currentState;
     bool finishedTurn = false;
@@ -42,7 +42,8 @@ public class Player : MonoBehaviour
 
         myPlayerGUI = playerGuiObject.GetComponent<PlayerGUI>();
 
-
+        timer = new System.Diagnostics.Stopwatch();
+        timer.Start();
 
         if (movementScript == null)
         {
@@ -73,7 +74,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (playerActive)
         {
             switch (currentState)
