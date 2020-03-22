@@ -26,9 +26,9 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 direction;
 
-    // Start is called before the first frame update
+    public int inputCount { get; set; }
 
-    void Start()
+    void Awake()
     {
         gameContainerObject = GameObject.Find("GameController");
         game = gameContainerObject.GetComponent<Game>();
@@ -58,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 90, 0);
+                    inputCount++;
                     return true;
                 }
 
@@ -78,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, -90, 0);
+                    inputCount++;
                     return true;
                 }
             }
@@ -94,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
+                    inputCount++;
                     return true;
                 }
 
@@ -112,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+                    inputCount++;
                     return true;
                 }
             }

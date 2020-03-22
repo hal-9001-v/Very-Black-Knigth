@@ -36,12 +36,10 @@ public class PlayerGUI : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
 
         colorBar = colorBarObject.GetComponent<Image>();
-
-
         colorBar.rectTransform.pivot = new Vector2(0, 0.5f);
         colorBar.fillMethod = Image.FillMethod.Horizontal;
 
@@ -78,6 +76,7 @@ public class PlayerGUI : MonoBehaviour
 
         Vector3 actualScale = maxLocalScale;
         actualScale.x *= hp / maxHealth;
+        
         colorBar.rectTransform.localScale = actualScale;
 
 

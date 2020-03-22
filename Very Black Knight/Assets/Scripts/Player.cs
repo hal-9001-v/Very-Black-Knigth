@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     bool finishedTurn = false;
     bool playerActive = true;
 
+    private int inputCount;
+
     enum State
     {
         idle = 0,
@@ -66,7 +68,8 @@ public class Player : MonoBehaviour
         {
             loadData();
         }
-        else {
+        else
+        {
             setData();
         }
     }
@@ -157,43 +160,37 @@ public class Player : MonoBehaviour
         displayLevelUpScreen();
     }
 
-    public void activePlayer(bool b) {
+    public void activePlayer(bool b)
+    {
         playerActive = b;
     }
 
-    public void upgradeHealth() {
-        if (upgrades > 0) {
+    public void upgradeHealth()
+    {
+        if (upgrades > 0)
+        {
             upgrades--;
 
             healthLevel++;
+            loadHealthLevel();
 
-            if (healthLevel == 2) {
-                MAXHEALTH += 2;
-                health = MAXHEALTH;
-
-                myPlayerGUI.setMaxHealth(MAXHEALTH);
-                myPlayerGUI.setHealth(health);
-            }
         }
     }
-    public void upgradeMovement() {
+    public void upgradeMovement()
+    {
         if (upgrades > 0)
         {
             upgrades--;
 
             movementLevel++;
 
-            if (movementLevel == 2)
-            {
-                movementScript.setTimeToReach(0.3f);
-            }
+            loadMovementLevel();
         }
 
-        if (movementLevel == 2) {
-            //movementScript.timeToReach;
-        }
+
     }
-    public void upgradeAttack() {
+    public void upgradeAttack()
+    {
         if (upgrades > 0)
         {
             upgrades--;
@@ -202,53 +199,86 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void displayLevelUpScreen() {
+    private void loadMovementLevel()
+    {
+        if (movementLevel == 2)
+        {
+            movementScript.setTimeToReach(0.4f);
+        }
+    }
+    private void loadHealthLevel()
+    {
+        if (movementLevel == 2)
+        {
+            MAXHEALTH += 2;
+            health = MAXHEALTH;
+
+            myPlayerGUI.setMaxHealth(MAXHEALTH);
+
+        }
+    }
+
+    private void displayLevelUpScreen()
+    {
         playerActive = false;
 
         myPlayerGUI.setLevelUpIndicators(movementLevel, healthLevel, upgrades);
 
     }
 
-    public void hideLevelUpScreen() {
+    public void hideLevelUpScreen()
+    {
         playerActive = true;
 
         myPlayerGUI.hideLevelUpIndicators();
     }
 
-    private void loadData() {
+    private void loadData()
+    {
         //FLOATS
         MAXHEALTH = PlayerPrefs.GetFloat("MAXHEALTH");
         health = MAXHEALTH;
-        
+
         //INTEGERS
         playerLevel = PlayerPrefs.GetInt("playerLevel");
         upgrades = PlayerPrefs.GetInt("upgrades");
         movementLevel = PlayerPrefs.GetInt("movementLevel");
         healthLevel = PlayerPrefs.GetInt("healthLevel");
+        inputCount = PlayerPrefs.GetInt("inputCount");
+
+        
+        loadHealthLevel();
+        loadMovementLevel();
 
         myPlayerGUI.setMaxHealth(MAXHEALTH);
         myPlayerGUI.setCurrentLevel(playerLevel);
 
     }
 
-    private void setData() {
+    private void setData()
+    {
         //FOATS
         MAXHEALTH = 5;
         health = MAXHEALTH;
-        
+
         //INTEGERS
         playerLevel = 1;
         upgrades = 0;
         movementLevel = 1;
         healthLevel = 1;
+        inputCount = 0;
 
 
         myPlayerGUI.setMaxHealth(MAXHEALTH);
-        myPlayerGUI.setCurrentLevel(playerLevel);        
+        myPlayerGUI.setCurrentLevel(playerLevel);
     }
 
     private void saveData()
     {
+        inputCount += movementScript.inputCount;
+
+        PlayerPrefs.DeleteAll();
+
         //FLOATS
         PlayerPrefs.SetFloat("MAXHEALTH", MAXHEALTH);
 
@@ -258,11 +288,14 @@ public class Player : MonoBehaviour
         PlayerPrefs.SetInt("upgrades", upgrades);
         PlayerPrefs.SetInt("movementLevel", movementLevel);
         PlayerPrefs.SetInt("healthLevel", healthLevel);
+        PlayerPrefs.SetInt("inputCount", inputCount);
 
         PlayerPrefs.Save();
     }
 
-    public void nextLevel() {
+    public void nextLevel()
+    {
+        saveData();
         int nextScene = UnityEngine.SceneManagement.SceneManager.sceneCount + 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.sceneCount + 1);
     }

@@ -87784,7 +87784,7 @@ PrefabInstance:
     - target: {fileID: 7326534191450135901, guid: 3439c4bce127b794d9703d04d803dbe0,
         type: 3}
       propertyPath: loadFromDisk
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8215936039137933699, guid: 3439c4bce127b794d9703d04d803dbe0,
         type: 3}
