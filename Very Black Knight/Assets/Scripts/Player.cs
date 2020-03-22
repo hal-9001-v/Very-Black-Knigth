@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
     IEnumerator restartScene() {
         yield return new WaitForSeconds(2);
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.sceneCount);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
 
         yield return 0;
     }
@@ -181,7 +181,7 @@ public class Player : MonoBehaviour
 
             healthLevel++;
             loadHealthLevel();
-
+            displayLevelUpScreen();
         }
     }
     public void upgradeMovement()
@@ -193,6 +193,7 @@ public class Player : MonoBehaviour
             movementLevel++;
 
             loadMovementLevel();
+            displayLevelUpScreen();
         }
 
 
@@ -204,7 +205,9 @@ public class Player : MonoBehaviour
             upgrades--;
 
             movementLevel++;
+            displayLevelUpScreen();
         }
+
     }
 
     private void loadMovementLevel()
@@ -213,7 +216,6 @@ public class Player : MonoBehaviour
         {
             movementScript.setTimeToReach(0.4f);
 
-            displayLevelUpScreen();
         }
     }
     private void loadHealthLevel()
@@ -224,8 +226,7 @@ public class Player : MonoBehaviour
             health = MAXHEALTH;
 
             myPlayerGUI.setMaxHealth(MAXHEALTH);
-            Debug.LogWarning("Hoi");
-            displayLevelUpScreen();
+
         }
     }
 
@@ -288,11 +289,10 @@ public class Player : MonoBehaviour
     {
         inputCount += movementScript.inputCount;
 
-        PlayerPrefs.DeleteAll();
+       // PlayerPrefs.DeleteAll();
 
         //FLOATS
         PlayerPrefs.SetFloat("MAXHEALTH", MAXHEALTH);
-
 
         //INTEGERS
         PlayerPrefs.SetInt("playerLevel", playerLevel);
@@ -306,8 +306,9 @@ public class Player : MonoBehaviour
 
     public void nextLevel()
     {
+        hideLevelUpScreen();
         saveData();
         int nextScene = UnityEngine.SceneManagement.SceneManager.sceneCount + 1;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.sceneCount + 1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
