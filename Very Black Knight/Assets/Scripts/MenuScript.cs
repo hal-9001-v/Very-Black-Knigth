@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Events;
-
+using UnityEngine.SceneManagement;
 public class MenuScript : MonoBehaviour
 {
     public UnityEvent startGame;
@@ -30,8 +30,16 @@ public class MenuScript : MonoBehaviour
 
     }
 
-    public void loadNextScene() {
-        Debug.LogWarning("New Scene Baby :D");
+    public void loadScene(int index) {
+
+        StartCoroutine(LoadScene(index));
+    }
+
+    IEnumerator LoadScene(int index) {
+        yield return new WaitForSeconds(2.5f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(index);
+
+        yield return 0;
     }
 
     public void exitGame(){
