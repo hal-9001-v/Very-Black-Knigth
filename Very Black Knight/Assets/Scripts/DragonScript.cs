@@ -15,6 +15,7 @@ public class DragonScript : Enemy
     float waitTime;
     float currentTime;
 
+    float baseTimeToReach;
 
     enum State
     {
@@ -42,6 +43,11 @@ public class DragonScript : Enemy
 
                     if (Vector3.Distance(transform.position, player.transform.position) < 20)
                     {
+                        timeToReach = baseTimeToReach;
+                    }
+                    else {
+                        timeToReach = baseTimeToReach * 2;
+                    }
 
                         movementList.Clear();
 
@@ -79,7 +85,7 @@ public class DragonScript : Enemy
                             readyForNextTurn = true;
                         }
 
-                    }
+                    
                     break;
 
                 //Walking
@@ -226,6 +232,8 @@ public class DragonScript : Enemy
     {
         player = GameObject.FindGameObjectWithTag("player");
         movementList = new List<Vector2>();
+
+        baseTimeToReach = timeToReach;
 
         initialize();
 
