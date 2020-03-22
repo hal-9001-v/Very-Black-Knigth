@@ -110,7 +110,8 @@ public class Player : MonoBehaviour
                     break;
                 //dead
                 case 2:
-
+                    playerActive = false;
+                    StartCoroutine(restartScene());
                     break;
 
                 //Hurt
@@ -123,6 +124,13 @@ public class Player : MonoBehaviour
 
     }
 
+    IEnumerator restartScene() {
+        yield return new WaitForSeconds(2);
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.sceneCount);
+
+        yield return 0;
+    }
 
     public bool hasFinishedTurn()
     {
@@ -204,6 +212,8 @@ public class Player : MonoBehaviour
         if (movementLevel == 2)
         {
             movementScript.setTimeToReach(0.4f);
+
+            displayLevelUpScreen();
         }
     }
     private void loadHealthLevel()
@@ -214,11 +224,12 @@ public class Player : MonoBehaviour
             health = MAXHEALTH;
 
             myPlayerGUI.setMaxHealth(MAXHEALTH);
-
+            Debug.LogWarning("Hoi");
+            displayLevelUpScreen();
         }
     }
 
-    private void displayLevelUpScreen()
+    public void displayLevelUpScreen()
     {
         playerActive = false;
 
