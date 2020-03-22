@@ -52304,6 +52304,16 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 9ff669efd1de75c47b97f86926e7c36e, type: 3}
+    - target: {fileID: 3067118116336836079, guid: b6acddce37929d14094d3b73398e5b04,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067118116336836079, guid: b6acddce37929d14094d3b73398e5b04,
+        type: 3}
+      propertyPath: BypassReverbZones
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3067118116336836081, guid: b6acddce37929d14094d3b73398e5b04,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -75560,7 +75570,7 @@ PrefabInstance:
     - target: {fileID: 3270589989645954535, guid: caf01a4b80f68f949a8a6957335a5355,
         type: 3}
       propertyPath: endingTile
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4172446619205294585, guid: caf01a4b80f68f949a8a6957335a5355,
         type: 3}

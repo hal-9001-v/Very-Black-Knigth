@@ -131,14 +131,14 @@ public class RankingManager : MonoBehaviour
 
         foreach (Person person in people)
         {
-            Debug.LogWarning(playerName + " foreach " + playerCount);
+
             for (int i = 0; i < 6; i++)
             {
                 if (!set[i] && newScores[i] == person.score)
                 {
                     newNames[i] = person.name;
                     set[i] = true;
-                    Debug.LogWarning(person.name + " " + person.score);
+
                     break;
                 }
             }
@@ -146,7 +146,7 @@ public class RankingManager : MonoBehaviour
         
         for (int i = 0; i < 5; i++)
         {
-            Debug.LogWarning(newNames[i] + " " + newScores[i]);
+
             names[i] = newNames[i];
             scores[i] = newScores[i];
         }
