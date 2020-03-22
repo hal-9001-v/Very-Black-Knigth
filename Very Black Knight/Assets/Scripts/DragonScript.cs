@@ -3,14 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Priority_Queue;
 public class DragonScript : Enemy
-{ /* PATHFINDING, NOT SUPPORTED
-    SimplePriorityQueue<Node> openNodes;
-    SimplePriorityQueue<Node> closedNodes;
-    Node currentNode;
-    Vector2 target;
-
-    */
-
+{
     private int currentState = 0;
     GameObject player;
     bool readyForNextTurn = true;
@@ -49,7 +42,7 @@ public class DragonScript : Enemy
 
                     if (Vector3.Distance(transform.position, player.transform.position) < 20)
                     {
-                        
+
                         movementList.Clear();
 
                         //Decide movement
@@ -73,15 +66,16 @@ public class DragonScript : Enemy
                         }
 
 
-                        
+
 
                         if (move())
                         {
                             currentState = (int)State.walking;
                             myAnimator.SetBool("walking", true);
-                            
+
                         }
-                        else {
+                        else
+                        {
                             readyForNextTurn = true;
                         }
 
@@ -128,17 +122,28 @@ public class DragonScript : Enemy
     private void setAttackTiles()
     {
 
+        MeshRenderer mr;
         foreach (GameObject tile in attackTiles)
         {
-            tile.GetComponent<MeshRenderer>().material.color -= attackColor;
+
+            if (tile.GetComponent<MeshRenderer>() != null)
+                mr = tile.GetComponent<MeshRenderer>();
+            else
+            {
+                mr = tile.GetComponentInChildren<MeshRenderer>();
+
+            }
+
+            mr.material.color -= attackColor;
+            
         }
 
         attackTiles.Clear();
         Vector3 auxiliarVector;
 
-            auxiliarVector = transform.position;
-            attackTiles.Add(game.getTile(auxiliarVector));
-        
+        auxiliarVector = transform.position;
+        attackTiles.Add(game.getTile(auxiliarVector));
+
 
         if (tileExists(1, 0))
         {
@@ -202,7 +207,15 @@ public class DragonScript : Enemy
 
         foreach (GameObject tile in attackTiles)
         {
-            tile.GetComponent<MeshRenderer>().material.color += attackColor;
+            mr = tile.GetComponent<MeshRenderer>();
+
+            if (mr == null)
+            {
+                mr = tile.GetComponentInChildren<MeshRenderer>();
+
+            }
+
+            mr.material.color += attackColor;
         }
 
     }
@@ -230,14 +243,16 @@ public class DragonScript : Enemy
         makeMovement();
     }
 
-    void resetTurnIn(float t) {
+    void resetTurnIn(float t)
+    {
         waitTime = t;
         currentTime = 0;
 
         delay = true;
     }
 
-    void delayFunction() {
+    void delayFunction()
+    {
         if (delay)
         {
             if (currentTime > waitTime)
@@ -257,7 +272,7 @@ public class DragonScript : Enemy
             if (tile.GetComponent<GridTile>().movable(player.transform.position.x, player.transform.position.z))
             {
                 player.GetComponent<Player>().hurt(2);
-                
+
                 return true;
 
             }
@@ -267,167 +282,4 @@ public class DragonScript : Enemy
 
     }
 
-
-    /*
-private void pathFinder(GameObject target)
-{
-
-   openNodes.Clear();
-   closedNodes.Clear();
-
-   Vector2 targetVector;
-   targetVector.x = target.transform.position.x / cellSize;
-   targetVector.y = target.transform.position.z / cellSize;
-
-   Node auxNode = new Node(null, targetVector, 0, 0);
-   openNodes.Enqueue(auxNode, 0);
-
-   while (openNodes.Count > 0)
-   {
-
-       currentNode = openNodes.Dequeue();
-
-       //if(currentNode == )
-
-       closedNodes.Enqueue(currentNode, currentNode.getF());
-
-       generateChild(1, 0);
-       generateChild(-1, 0);
-       generateChild(0, 1);
-       generateChild(0, -1);
-
-
-
-   }
-}
-
-private void generateChild(int x, int y)
-{
-   Node node;
-   node = new Node(currentNode, target, x, y);
-
-   //if closedNodes doesnt contain node
-   if (!closedNodes.Contains(node))
-   {
-
-       //If openNodes doesnt contain node
-       if (!openNodes.Contains(node))
-       {
-           openNodes.Enqueue(node, node.getF());
-       }
-       //If openNodes contains node
-       else
-       {
-           //If g in list is bigger, set new parent and recalculate f
-
-       }
-   }
-}
-
-public float aPathValue(int x, int z)
-{
-
-
-   return 0;
-}
-
-public class Node : System.IComparable
-{
-
-   private int f;
-   private int g;
-
-   Vector2 position;
-   Vector2 target;
-
-   static float cellSize = 1;
-
-   Node parent;
-
-   public Node(Node parent, Vector2 target, int x, int y)
-   {
-       this.parent = parent;
-       this.target = target;
-
-       position = parent.getPosition();
-
-       position.x += x;
-       position.y += y;
-
-       recalculateFG();
-
-   }
-
-   public int getG()
-   {
-       return g;
-   }
-
-   public void setG(int g)
-   {
-       this.g = g;
-   }
-
-   public int getF()
-   {
-       return f;
-   }
-
-   public void setF(int f)
-   {
-       this.f = f;
-   }
-
-   public Vector2 getPosition()
-   {
-       return position;
-   }
-
-   public Node getParent()
-   {
-       return parent;
-   }
-
-   public void setParent(Node parent)
-   {
-       this.parent = parent;
-   }
-
-   public int CompareTo(object obj)
-   {
-       Node otherNode = obj as Node;
-
-       //Lowest f is better
-       if (otherNode.getPosition() == position)
-       {
-           //return ;
-       }
-
-       return 1;
-
-   }
-
-   public void recalculateFG()
-   {
-       //G is the distance between parent and this node
-       g = parent.getG() + (int)Mathf.Abs(position.x - target.x) + (int)Mathf.Abs(position.y - target.y);
-
-       //F is g + distance to target in Manhattan Distance
-       f = g + (int)Mathf.Abs(position.x - target.x) + (int)Mathf.Abs(position.y - target.y);
-   }
-}
-
-
-Node listContains(List<Node> list, Node nodeToCompare)
-{
-   foreach (Node node in list)
-   {
-       if (node.getPosition() == nodeToCompare.getPosition())
-       {
-           return node;
-       }
-   }
-   return null;
-}
-*/
 }

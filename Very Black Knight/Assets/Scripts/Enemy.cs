@@ -33,9 +33,17 @@ public abstract class Enemy : MonoBehaviour
         myAnimator = gameObject.GetComponent<Animator>();
 
         floorColor = new Color(1, 0, 0);
-        attackColor = new Color(0.5f,0,0);
+        attackColor = new Color(0.5f, 0, 0);
         currentTile = game.getTile(transform.position);
-        currentTile.GetComponent<MeshRenderer>().material.color += floorColor;
+
+        MeshRenderer mr = currentTile.GetComponent<MeshRenderer>();
+
+        if (mr == null)
+        {
+            mr = currentTile.GetComponentInChildren<MeshRenderer>();
+        }
+
+        mr.material.color += floorColor;
 
     }
 
@@ -116,11 +124,26 @@ public abstract class Enemy : MonoBehaviour
 
     void colorFloor(Vector3 positionVector)
     {
-        currentTile.GetComponent<MeshRenderer>().material.color -= floorColor;
+        MeshRenderer mr;
+
+        mr = currentTile.GetComponent<MeshRenderer>();
+
+        if (mr == null)
+        {
+            mr = currentTile.GetComponentInChildren<MeshRenderer>();
+        }
+        mr.material.color -= floorColor;
 
         currentTile = game.getTile(positionVector);
 
-        currentTile.GetComponent<MeshRenderer>().material.color += floorColor;
+        mr = currentTile.GetComponent<MeshRenderer>();
+
+        if (mr == null)
+        {
+            mr = currentTile.GetComponentInChildren<MeshRenderer>();
+        }
+        mr.material.color += floorColor;
+
 
     }
 }
